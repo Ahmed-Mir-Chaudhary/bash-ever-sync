@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+@layer utilities {
+  .text-glow-pink {
+    text-shadow: 0 0 10px rgba(255, 133, 162, 0.8), 0 0 20px rgba(255, 133, 162, 0.4);
+  }
+  .bg-glow-pink {
+    box-shadow: 0 0 20px rgba(255, 133, 162, 0.5), 0 0 40px rgba(255, 133, 162, 0.2);
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
+
+body {
+  background-color: #050505;
+  color: #ffffff;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
