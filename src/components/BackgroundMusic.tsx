@@ -3,72 +3,62 @@ import { BIRTHDAY_CONFIG } from "../config";
 
 export const BackgroundMusic = ({ isPlaying, scene }: { isPlaying: boolean; scene: string }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const prevTrackRef = useRef<string>("");
+
+  const getTrackForScene = () => {
+    if (["cute", "book", "birthdayText", "finale"].includes(scene)) {
+      return BIRTHDAY_CONFIG.sounds.backgroundMusicBollywood || BIRTHDAY_CONFIG.sounds.backgroundMusic;
+    }
+    return BIRTHDAY_CONFIG.sounds.backgroundMusic;
+  };
 
   useEffect(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio(BIRTHDAY_CONFIG.sounds.backgroundMusic);
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0;
-    }
+    const trackUrl = getTrackForScene();
 
-    const audio = audioRef.current;
-
-    if (isPlaying) {
-      audio.play().catch((err) => console.warn("Background music failed to play:", err));
-      
-      // Initial Fade in
-      if (audio.volume === 0) {
-        let vol = 0;
-        const fadeIn = setInterval(() => {
-          if (vol < 0.5) {
-            vol += 0.01;
-            audio.volume = vol;
-          } else {
-            clearInterval(fadeIn);
-          }
-        }, 100);
-      }
-    } else {
-      // Fade out on stop
-      let vol = audio.volume;
+    // Smooth crossfade when switching tracks
+    if (audioRef.current && prevTrackRef.current !== trackUrl) {
+      const oldAudio = audioRef.current;
+      // Fade out old track
+      let vol = oldAudio.volume;
       const fadeOut = setInterval(() => {
-        if (vol > 0.01) {
-          vol -= 0.01;
-          audio.volume = vol;
+        if (vol > 0.02) {
+          vol -= 0.02;
+          oldAudio.volume = Math.max(vol, 0);
         } else {
-          audio.pause();
+          oldAudio.pause();
           clearInterval(fadeOut);
         }
-      }, 100);
+      }, 50);
+
+      audioRef.current = null;
     }
-  }, [isPlaying]);
 
-  // Scene transition "dip"
-  useEffect(() => {
-    if (!isPlaying || !audioRef.current) return;
-    
-    const audio = audioRef.current;
-    const originalVol = 0.5;
-    const dipVol = 0.2;
+    if (!audioRef.current) {
+      audioRef.current = new Audio(trackUrl);
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0;
+      prevTrackRef.current = trackUrl;
+    }
 
-    // Dip volume
-    audio.volume = dipVol;
-    
-    // Fade back up
-    const timer = setTimeout(() => {
-      let vol = dipVol;
-      const fadeUp = setInterval(() => {
-        if (vol < originalVol) {
-          vol += 0.02;
-          audio.volume = Math.min(vol, originalVol);
+    if (isPlaying) {
+      const current = audioRef.current;
+      current.play().catch((err) => console.warn("Background music failed to play:", err));
+      // Gentle fade in to 0.35 (softer than before)
+      let vol = current.volume;
+      const fadeIn = setInterval(() => {
+        if (vol < 0.35) {
+          vol += 0.01;
+          current.volume = Math.min(vol, 0.35);
         } else {
-          clearInterval(fadeUp);
+          clearInterval(fadeIn);
         }
-      }, 100);
-    }, 500);
+      }, 60);
 
-    return () => clearTimeout(timer);
-  }, [scene, isPlaying]);
+      return () => clearInterval(fadeIn);
+    }
+
+    return;
+  }, [isPlaying, scene]);
 
   return null;
 };

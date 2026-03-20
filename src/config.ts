@@ -12,22 +12,42 @@ export const BIRTHDAY_CONFIG = {
   birthdayMessage: "Happy Birthday Hiba ❤️",
   countdownStart: 3,
   images: [
-    "https://picsum.photos/seed/hiba1/600/800",
-    "https://picsum.photos/seed/hiba2/600/800",
-    "https://picsum.photos/seed/hiba3/600/800",
-    "https://picsum.photos/seed/hiba4/600/800",
-    "https://picsum.photos/seed/hiba5/600/800",
-    "https://picsum.photos/seed/hiba6/600/800",
+    "/photos/1.jpg",
+    "/photos/2.jpg",
+    "/photos/3.jpg",
+    "/photos/4.jpg",
   ],
-  collageImages: Array.from({ length: 20 }, (_, i) => `https://picsum.photos/seed/collage${i}/200/200`),
+  collageImages: [
+    "/photos/c1.jpg",
+    "/photos/c2.jpg",
+    "/photos/c3.jpg",
+    "/photos/c4.jpg",
+    "/photos/c5.jpg",
+    "/photos/c6.jpg",
+    "/photos/c7.jpg",
+    "/photos/c8.jpg",
+    "/photos/c9.jpg",
+    "/photos/c10.jpg",
+    "/photos/c11.jpg",
+    "/photos/c12.jpg",
+    "/photos/c13.jpg",
+    "/photos/c14.jpg",
+    "/photos/c15.jpg",
+    "/photos/c16.jpg",
+    "/photos/c17.jpg",
+    "/photos/c18.jpg",
+    "/photos/c19.jpg",
+    "/photos/c20.jpg",
+  ],
   sounds: {
-    transition: "https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3", // Soft chime/whoosh
-    heartbeat: "https://assets.mixkit.co/active_storage/sfx/1399/1399-preview.mp3", // Soft thud
-    pageFlip: "https://assets.mixkit.co/active_storage/sfx/481/481-preview.mp3", // Paper rustle
-    countdownTick: "https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3", // Soft tick
-    magicReveal: "https://assets.mixkit.co/active_storage/sfx/2434/2434-preview.mp3", // Sparkle/Magic
-    loveSound: "https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3", // Romantic chime
-    backgroundMusic: "https://assets.mixkit.co/music/preview/mixkit-romantic-memories-139.mp3", // Romantic instrumental
+    transition: "https://cdn.pixabay.com/audio/2022/03/10/audio_d8d37f79de.mp3", // Gentle whoosh
+    heartbeat: "https://cdn.pixabay.com/audio/2022/10/30/audio_607db20d56.mp3", // Soft heartbeat
+    pageFlip: "https://cdn.pixabay.com/audio/2022/03/19/audio_78ae578740.mp3", // Gentle page turn
+    countdownTick: "https://cdn.pixabay.com/audio/2022/03/15/audio_caa625dafc.mp3", // Soft water drop tick
+    magicReveal: "https://cdn.pixabay.com/audio/2022/01/18/audio_8db1f1b5a2.mp3", // Gentle magic sparkle
+    loveSound: "https://cdn.pixabay.com/audio/2021/08/04/audio_0625c1539c.mp3", // Soft romantic chime
+    backgroundMusic: "https://cdn.pixabay.com/audio/2022/02/16/audio_eca7b7c4f6.mp3", // Soft romantic piano
+    backgroundMusicBollywood: "/music/bollywood-romantic.webm", // Tum Hi Ho - Bollywood romantic
   },
   colors: {
     primary: "#ff85a2", // Soft pink
